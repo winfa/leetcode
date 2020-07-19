@@ -3,5 +3,6 @@
     "eslint.format.enable": true,
     "eslint.run": "onSave",
     "eslint.quiet": true,
-    "eslint.alwaysShowStatus": true
+    "eslint.alwaysShowStatus": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
