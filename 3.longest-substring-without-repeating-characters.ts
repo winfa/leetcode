@@ -70,7 +70,7 @@ function lengthOfLongestSubstringWithLiner(s: string): number {
 
   // return lengthOfLongestSubstring;
 
-  const hashKeys: { [key: string]: boolean} = {};
+  const hashKeys: { [key: string]: number} = {};
   let lengthOfLongestSubstring = 0;
   let i = 0;
   for(let j = 0; j <= arrayStr.length - 1; j++) {
@@ -78,12 +78,18 @@ function lengthOfLongestSubstringWithLiner(s: string): number {
       return lengthOfLongestSubstring;
     }
 
-    while (hashKeys[arrayStr[j]]) {
-      delete hashKeys[arrayStr[i]];
-      i = i + 1;
+    const newChar = arrayStr[j];
+    if (hashKeys[newChar] !== undefined) {
+      const charIndex = hashKeys[newChar];
+
+      for (let index = i; index <= charIndex; index++) {
+        delete hashKeys[arrayStr[index]];
+      }
+
+      i = charIndex + 1;
     }
 
-    hashKeys[arrayStr[j]] = true;
+    hashKeys[newChar] = j;
     lengthOfLongestSubstring = Math.max(lengthOfLongestSubstring, Object.keys(hashKeys).length);
   }
 
@@ -139,6 +145,6 @@ function getSubStringStartFromIndexWithIncludesImprovement(arrayStr: string[], s
   return arraySubStr;
 }
 
-// console.log(lengthOfLongestSubstring("dvdf"));
+console.log(lengthOfLongestSubstring("dvdf"));
 // @lc code=end
 
