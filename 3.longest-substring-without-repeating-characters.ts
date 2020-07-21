@@ -40,32 +40,51 @@ function lengthOfLongestSubstringWithLiner(s: string): number {
     return 0;
   }
 
-  const subStrObj: SubStrObj = {
-    startIndex: 0,
-    endIndex: 0,
-    hashKeys: {
-      [arrayStr[0]]: true,
-    }
-  };
-  let lengthOfLongestSubstring = subStrObj.endIndex - subStrObj.startIndex + 1;
+  // const subStrObj: SubStrObj = {
+  //   startIndex: 0,
+  //   endIndex: 0,
+  //   hashKeys: {
+  //     [arrayStr[0]]: true,
+  //   }
+  // };
+  // let lengthOfLongestSubstring = subStrObj.endIndex - subStrObj.startIndex + 1;
 
-  while(subStrObj.endIndex <= arrayStr.length - 1) {
-    if (lengthOfLongestSubstring > arrayStr.length - 1 - subStrObj.startIndex) {
+  // while(subStrObj.endIndex <= arrayStr.length - 1) {
+  //   if (lengthOfLongestSubstring > arrayStr.length - 1 - subStrObj.startIndex) {
+  //     return lengthOfLongestSubstring;
+  //   }
+
+  //   const newEndIndex = subStrObj.endIndex + 1;
+  //   const newChar = arrayStr[newEndIndex];
+
+  //   if (!subStrObj.hashKeys[newChar]) {
+  //     subStrObj.hashKeys[newChar] = true;
+  //     subStrObj.endIndex = newEndIndex;
+  //   } else {
+  //     updateSubStringWithNewEndingIndex(subStrObj, arrayStr);
+  //   }
+    
+  //   const newSubStrLength = subStrObj.endIndex - subStrObj.startIndex + 1;
+  //   lengthOfLongestSubstring = lengthOfLongestSubstring > newSubStrLength ? lengthOfLongestSubstring : newSubStrLength;
+  // }
+
+  // return lengthOfLongestSubstring;
+
+  const hashKeys: { [key: string]: boolean} = {};
+  let lengthOfLongestSubstring = 0;
+  let i = 0;
+  for(let j = 0; j <= arrayStr.length - 1; j++) {
+    if (lengthOfLongestSubstring > arrayStr.length - i) {
       return lengthOfLongestSubstring;
     }
 
-    const newEndIndex = subStrObj.endIndex + 1;
-    const newChar = arrayStr[newEndIndex];
-
-    if (!subStrObj.hashKeys[newChar]) {
-      subStrObj.hashKeys[newChar] = true;
-      subStrObj.endIndex = newEndIndex;
-    } else {
-      updateSubStringWithNewEndingIndex(subStrObj, arrayStr);
+    while (hashKeys[arrayStr[j]]) {
+      delete hashKeys[arrayStr[i]];
+      i = i + 1;
     }
-    
-    const newSubStrLength = subStrObj.endIndex - subStrObj.startIndex + 1;
-    lengthOfLongestSubstring = lengthOfLongestSubstring > newSubStrLength ? lengthOfLongestSubstring : newSubStrLength;
+
+    hashKeys[arrayStr[j]] = true;
+    lengthOfLongestSubstring = Math.max(lengthOfLongestSubstring, Object.keys(hashKeys).length);
   }
 
   return lengthOfLongestSubstring;
