@@ -18,7 +18,7 @@ function lengthOfLongestSubstringWithSimplestWay(s: string): number {
       return lengthOfLongestSubstring;
     }
 
-    const subString = getSubStringStartFromIndex(arrayStr, i);
+    const subString = getSubStringStartFromIndexWithIncludesImprovement(arrayStr, i);
 
     if (subString.length > lengthOfLongestSubstring) {
       lengthOfLongestSubstring = subString.length;
@@ -36,6 +36,23 @@ function getSubStringStartFromIndex(arrayStr: string[], startIndex: number) {
       return arraySubStr;
     } else {
       arraySubStr.push(char);
+    }
+  }
+
+  return arraySubStr;
+}
+
+function getSubStringStartFromIndexWithIncludesImprovement(arrayStr: string[], startIndex: number) {
+  const arraySubStr: string[] = [];
+  const hashSubStr: { [key: string]: boolean} = {};
+
+  for(let i = startIndex; i < arrayStr.length; i++) {
+    const char = arrayStr[i];
+    if (hashSubStr[char]) {
+      return arraySubStr;
+    } else {
+      arraySubStr.push(char);
+      hashSubStr[char] = true;
     }
   }
 
